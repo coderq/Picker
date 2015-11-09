@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>选择器</title>
+    <link rel="stylesheet" type="text/css" href="/libs/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="modal fade" id="Picker"></div>
+    <script src="/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="/libs/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/libs/jquery.picker.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        $('#Picker').picker('single_picture', {
+        	title: '图片选择',
+        	confirm_text: '确定',
+        	cancel_text: '取消',
+        	folder_method: 'get',
+        	folder_url: '/folder',
+        	image_method: 'get',
+        	image_url: '/img',
+        	rows: 10,
+        	onComplete: function(selected) {
+        		alert('You select: ' + JSON.stringify(selected));
+        	}
+        }).modal('show');
+    	// $('#Picker').picker('multi_picture', {
+     //    	title: '图片选择222',
+     //    	confirm_text: '确定123',
+     //    	cancel_text: '取消34234',
+     //    	folder_method: 'get',
+     //    	folder_url: '/folder',
+     //    	image_method: 'get',
+     //    	image_url: '/img',
+     //    	rows: 10,
+     //    	onComplete: function(selected) {
+     //    		alert('You select: ' + JSON.stringify(selected));
+     //    	}
+     //    }).modal('show');
+        // $('#Picker').picker('single_text', {
+        // 	title: '锚点选择',
+        // 	confirm_text: '确定',
+        // 	cancel_text: '取消',
+        // 	method: 'get',
+        // 	url: '/data',
+        // 	rows: 10,
+        // 	onComplete: function(selected) {
+        // 		alert('You select: ' + JSON.stringify(selected));
+        // 	}
+        // }).modal('show');
+    });
+    </script>
+</body>
+
+</html>
