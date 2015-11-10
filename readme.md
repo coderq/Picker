@@ -54,7 +54,7 @@ $('#Picker').picker('single_text', {
 
 ```
 ### 数据格式
-``` json
+``` javascript
 {
     "code": 0,                            // 0:成功，其他：失败
     "message": "错误原因",                 // 当code非0时，插件会抛出该错误信息
@@ -91,7 +91,7 @@ $('#Picker').picker('single_picture', {
 }).modal('show');
 ```
 ### 文件夹数据格式
-``` json
+``` javascript
 {
     "code":0,                       // 错误代码
     "message":"成功",               // 错误信息
@@ -106,7 +106,7 @@ $('#Picker').picker('single_picture', {
 }
 ```
 ### 图片数据格式
-``` json
+``` javascript
 {
     "code":0,                       // 错误代码
     "message":"成功",               // 错误信息
