@@ -22,7 +22,20 @@
     <script type="text/javascript" src="/libs/jquery.picker.js"></script>
     <script type="text/javascript">
     $(function() {
-        $('#Picker').picker('single_picture', {
+        // $('#Picker').picker('single_picture', {
+        // 	title: '图片选择',
+        // 	confirm_text: '确定',
+        // 	cancel_text: '取消',
+        // 	folder_method: 'get',
+        // 	folder_url: '/folder',
+        // 	image_method: 'get',
+        // 	image_url: '/img',
+        // 	rows: 10,
+        // 	onComplete: function(selected) {
+        // 		alert('You select: ' + JSON.stringify(selected));
+        // 	}
+        // }).modal('show');
+    	$('#Picker').picker('multi_picture', {
         	title: '图片选择',
         	confirm_text: '确定',
         	cancel_text: '取消',
@@ -35,19 +48,6 @@
         		alert('You select: ' + JSON.stringify(selected));
         	}
         }).modal('show');
-    	// $('#Picker').picker('multi_picture', {
-     //    	title: '图片选择222',
-     //    	confirm_text: '确定123',
-     //    	cancel_text: '取消34234',
-     //    	folder_method: 'get',
-     //    	folder_url: '/folder',
-     //    	image_method: 'get',
-     //    	image_url: '/img',
-     //    	rows: 10,
-     //    	onComplete: function(selected) {
-     //    		alert('You select: ' + JSON.stringify(selected));
-     //    	}
-     //    }).modal('show');
         // $('#Picker').picker('single_text', {
         // 	title: '锚点选择',
         // 	confirm_text: '确定',

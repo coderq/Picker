@@ -118,3 +118,52 @@ $('#Picker').picker('single_picture', {
     }, ...]
 }
 ```
+## 多图片选择
+多图片选择与单图片选择类似，只是在选择图片时，比单图片选择多了一个复选框，点击确定时，插件会遍历所有的已选中项，并将选中的图片数据行返回。
+### 效果图
+![选择文件夹](http://chuantu.biz/t2/18/1447121115x1822610075.png)
+![选择图片](http://chuantu.biz/t2/18/1447121210x-1566679290.png)
+### 使用方法
+``` javascript
+$('#Picker').picker('multi_picture', {
+    title: '图片选择',
+    confirm_text: '确定',
+    cancel_text: '取消',
+    folder_method: 'get',
+    folder_url: '/folder',
+    image_method: 'get',
+    image_url: '/img',
+    rows: 10,
+    onComplete: function(selected) {
+        alert('You select: ' + JSON.stringify(selected));
+    }
+}).modal('show');
+```
+### 文件夹数据格式
+``` javascript
+{
+    "code":0,                       // 错误代码
+    "message":"成功",               // 错误信息
+    "rows":10,                      // 每页显示行数
+    "page":1,                       // 当前页码
+    "total":16,                     // 总数据量
+    "data":[{                       // 文件夹列表
+        "id":1,                     // 文件夹ID
+        "name":"双11专场图片",       // 文件夹名称
+        "total":32                  // 文件夹下图片总量
+    }, ...]
+}
+```
+### 图片数据格式
+``` javascript
+{
+    "code":0,                       // 错误代码
+    "message":"成功",               // 错误信息
+    "total":13,                     // 总数据量
+    "data":[{                       // 图片列表
+        "id":1,                     // 文件夹ID
+        "name":"首页截图",           // 文件夹名称
+        "src":"/src/imgs/1.png"     // 文件夹下图片总量
+    }, ...]
+}
+```
