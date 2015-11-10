@@ -29,7 +29,7 @@
 ### Javascript
 ``` javascript
 $('#Dialog').picker(<type>, {
-	<attributes>: <value> 
+    <attributes>: <value> 
 });
 ```
 
@@ -39,15 +39,15 @@ $('#Dialog').picker(<type>, {
 ![效果图](http://chuantu.biz/t2/18/1447073845x1822610075.png)
 ### 使用方法
 ``` javascript
-$('#Picker').picker('text_single', {
-    title: '文本选择',                  // 定义弹出框的标题
+$('#Picker').picker('single_text', {
+    title: '文本选择',                   // 定义弹出框的标题
     confirm_text: '确定',               // 定义确定按钮的文本
     cancel_text: '取消',                // 定义取消按钮的文本
     method: 'get',                      // 定义http获取方式
     url: '/data',                       // 定义http获取地址
     rows: 10,                           // 定义每页显示行数
     onComplete: function(selected) {    // 定义用户点击确定按钮时调用的方法，方法第一个参数为选中元素
-    	alert('You select: ' + JSON.stringify(selected));
+        alert('You select: ' + JSON.stringify(selected));
                                         // You select: {"id": 1, "name": "神爸", "href": "http://www.shenba.com", ...}
     }
 }).modal('show');
@@ -56,16 +56,16 @@ $('#Picker').picker('text_single', {
 ### 数据格式
 ``` json
 {
-	"code": 0, 							// 0:成功，其他：失败
-	"message": "错误原因", 				// 当code非0时，插件会抛出该错误信息
-	"data": [{							// 文本列表
-		"id": 1,						// 唯一ID 
-		"name": "神爸",					// 文本名称
-		...								// 如果有必要，可以自己定义一些扩展属性
-	},...],
-	page: 1,                            // 页码
-	rows: 10,                           // 每页数据行数
-	total: 22                           // 总数据量
+    "code": 0,                            // 0:成功，其他：失败
+    "message": "错误原因",                 // 当code非0时，插件会抛出该错误信息
+    "data": [{                            // 文本列表
+        "id": 1,                          // 唯一ID 
+        "name": "神爸",                    // 文本名称
+        ...                               // 如果有必要，可以自己定义一些扩展属性
+    },...],
+    page: 1,                              // 页码
+    rows: 10,                             // 每页数据行数
+    total: 22                             // 总数据量
 }
 ```
 
@@ -86,7 +86,7 @@ $('#Picker').picker('single_picture', {
     image_url: '/img',
     rows: 10,
     onComplete: function(selected) {
-    	alert('You select: ' + JSON.stringify(selected));
+        alert('You select: ' + JSON.stringify(selected));
     }
 }).modal('show');
 ```
@@ -100,7 +100,7 @@ $('#Picker').picker('single_picture', {
     "total":16,                     // 总数据量
     "data":[{                       // 文件夹列表
         "id":1,                     // 文件夹ID
-        "name":"双11专场图片",      // 文件夹名称
+        "name":"双11专场图片",       // 文件夹名称
         "total":32                  // 文件夹下图片总量
     }, ...]
 }
@@ -113,7 +113,7 @@ $('#Picker').picker('single_picture', {
     "total":13,                     // 总数据量
     "data":[{                       // 图片列表
         "id":1,                     // 文件夹ID
-        "name":"首页截图",          // 文件夹名称
+        "name":"首页截图",           // 文件夹名称
         "src":"/src/imgs/1.png"     // 文件夹下图片总量
     }, ...]
 }
