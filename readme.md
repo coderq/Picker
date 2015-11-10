@@ -6,6 +6,13 @@
 > * jQuery
 > * Bootstrap 3.0
 
+## 试运行
+Step1 执行node.js服务
+``` javascript
+node app.js
+```
+Step2 chrome浏览器访问http://localhost:3001
+
 ### HTML
 ``` html
 <!DOCTYPE html>
