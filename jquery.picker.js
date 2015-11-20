@@ -18,9 +18,7 @@
 			});
 			matches.map(function(item, index) {
 				var value = data[keys[index]];
-				if (value) {
-					tpl = tpl.replace(item, value);
-				}
+				tpl = tpl.replace(item, value || '');
 			});
 		}
 		return tpl;
@@ -743,10 +741,643 @@
 		};
 	})();
 
+	var single_goods = (function() {
+		var _defaults = {
+				title: '商品选择',
+				confirm_text: '确定',
+				cancel_text: '取消',
+				rows: 8
+			},
+			_opts;
+		var _handler, _data, _jq = {};
+		var _template = {
+			content: '<div class="modal-dialog modal-lg" role="document">' +
+				'<div class="modal-content pk-brand">' +
+				'</div>' +
+				'<div class="modal-content pk-goods hidden">' +
+				'</div>' +
+				'</div>',
+			header: '<div class="modal-header">' +
+				'<button type="button" class="close" data-dismiss="modal" aria-label="Close">' +
+				'<span aria-hidden="true">&times;</span>' +
+				'</button>' +
+				'<h4 class="modal-title"><%= title %></h4>' +
+				'</div>',
+			brand_body: '<div class="modal-body">' +
+				'<div>' +
+				'<input class="form-control" type="search" placeholder="Search..." style="margin-bottom: 10px;">' +
+				'<div class="thumbnail-group" style="width: 100%; max-height: 320px; overflow: auto; margin-bottom: 0;">' +
+				'</div>' +
+				'</div>' +
+				'</div>',
+			brand: '<div class="thumbnail" style="display: inline-block; margin: 0 17px 10px 17px; padding: 0 26px; cursor: pointer; text-align: center;" data-id="<%= id %>">' +
+      			'<img src="<%= img %>" style="width: 128px;" />' +
+      			'<div class="caption">' +
+        		'<h4><%= name %></h4>' +
+        		'<p>共有商品<b><%= total %></b>件</p>' +
+      			'</div>' +
+    			'</div>',
+			brand_footer: '<div class="modal-footer">' +
+				'<nav style="float: left;">' +
+				'<ul class="pagination" style="margin: 0;">' +
+				'</ul>' +
+				'</nav>' +
+				'</div>',
+			goods_body: '<div class="modal-body">' +
+				'<div>' +
+				'<form class="form-inline pk-goods-type-group" style="line-height: 32px;"></form>' +
+				'<div class="thumbnail-group" style="width: 100%; max-height: 420px; overflow: auto; margin-bottom: 0;">' +
+				'</div>' +
+				'</div>' +
+				'</div>',
+			goods_type: '<label style="margin-right:10px;"><input type="radio" name="goods_type" value="<%= id %>">&nbsp;<%= name %></label>',
+    		goods: '<a href="javascript:void(0);" class="thumbnail" style="display: inline-block; width: 182px; margin: 0 17px 10px 17px; padding: 0 10px; cursor: pointer;" data-id="<%= id %>">' + 
+     	 		'<img src="<%= src %>" alt="<%= name %>" style="max-width: 160px; max-height: 200px;">' +
+    			'<div class="caption">' +
+        		'<p><%= name %></p>' +
+        		'</div>' +
+    			'</a>',
+			goods_footer: '<div class="modal-footer">' +
+				'<button type="button" class="btn btn-default pk-back">返回</button>' +
+				'<button type="button" class="btn btn-primary"><%= confirm_text %></button>' +
+				'</div>',
+			prev: '<li data-page="<%= page %>">' +
+				'<a href="javascript:void(0);" aria-label="Previous">' +
+				'<span aria-hidden="true">&laquo;</span>' +
+				'</a>' +
+				'</li>',
+			next: '<li data-page="<%= page %>">' +
+				'<a href="javascript:void(0);" aria-label="Next">' +
+				'<span aria-hidden="true">&raquo;</span>' +
+				'</a>' +
+				'</li>',
+			page: '<li data-page="<%= page %>">' +
+				'<a href="javascript:void(0);"><%= page %></a>' +
+				'</li>'
+		};
+		var _loadBrandData = function(opts, search, cb) {
+			$.ajax({
+				url: opts.brand_url,
+				method: opts.brand_method || 'get',
+				data: {
+					search: search.text,
+					page: search.page,
+					rows: search.rows
+				},
+				dataType: 'json',
+				success: cb,
+				error: function(err) {
+					throw err;
+				}
+			});
+		};
+		var _loadGoodsTypeData = function(opts, search, cb) {
+			$.ajax({
+				url: opts.goods_type_url,
+				method: opts.goods_method || 'get',
+				data: {
+					brand_id: search.brand_id
+				},
+				dataType: 'json',
+				success: cb,
+				error: function(err) {
+					throw err;
+				}
+			});
+		};
+		var _loadGoodsData = function(opts, search, cb) {
+			$.ajax({
+				url: opts.goods_url,
+				method: opts.goods_method || 'get',
+				data: {
+					brand_id: search.brand_id,
+					goods_type_id: search.goods_type_id
+				},
+				dataType: 'json',
+				success: cb,
+				error: function(err) {
+					throw err;
+				}
+			});
+		};
+		var _onSearch = function(page) {
+			return function() {
+				_handler && clearTimeout(_handler);
+				_handler = setTimeout(function() {
+					var text = _jq.$brand_search.val();
+					var rows = _opts.rows;
+					_loadBrandData(_opts, {
+						text: text,
+						page: page || 1,
+						rows: rows
+					}, function(result) {
+						if (result.code) throw Error(result.message);
+						_renderBrand(result);
+					});
+				}, 500);
+			}
+		};
+		var _renderBrandList = function(data_list) {
+			_jq.$brand_group.html('');
+			$.each(data_list, function(index, item) {
+				var $item = $(compile(_template.brand, item));
+				_jq.$brand_group.append($item);
+				$item.bind('click', function() {
+					var brand_id = $(this).data('id');
+					_renderGoods(brand_id);
+				});
+			});
+		};
+		var _renderBrandPagination = function(result) {
+			var page = result.page;
+			var rows = result.rows;
+			var total = Math.ceil(result.total / rows);
+			var start = Math.max(page - 3, 1);
+			var end = Math.min(page + 3, total);
+			var $prev = $(compile(_template.prev, {
+				page: Math.max(page - 1, 1)
+			}));
+			var $next = $(compile(_template.next, {
+				page: Math.min(page + 1, total)
+			}));
+			var $page;
+			_jq.$pagination.html('');
+			if (total === 0) return;
+			if (result.page === start) {
+				$prev.addClass('disabled');
+			}
+			_jq.$pagination.append($prev);
+			for (i = start; i <= end; i++) {
+				$page = $(compile(_template.page, {
+					page: i
+				}));
+				if (i === page) {
+					$page.addClass('active');
+				}
+				_jq.$pagination.append($page);
+			}
+			if (result.page === end) {
+				$next.addClass('disabled');
+			}
+			_jq.$pagination.append($next);
+			_jq.$pagination.find('li').bind('click', function() {
+				var $this = $(this);
+				var page = $this.data('page');
+				if (!$this.hasClass('active')) {
+					_onSearch(page)();
+				}
+			});
+		};
+		var _renderBrand = function(result) {
+			_renderBrandList(result.data);
+			_renderBrandPagination(result);
+			_jq.$brand_search.get(0).focus();
+		};
+		var _renderGoodsTypeList = function(goods_type, brand_id) {
+			goods_type.unshift({id: '0', name: '全部', checked: 'true'});
+			$.each(goods_type, function(index, item) {
+				var $item;
+				$item = $(compile(_template.goods_type, item));
+				_jq.$goods_type_group.append($item);
+				if (!index) $item.find('input').attr('checked', true);
+				$item.find('input').bind('change', function() {
+					var _this = $(this);
+					var sublings = _this.siblings();
+					if (_this.is(':checked')) {
+						sublings.attr('checked', false);
+						_renderGoods(brand_id, _this.val());
+					}
+				})
+			});
+		};
+		var _renderGoodsList = function(goods) {
+			$.each(goods, function(index, item) {
+				var $item = $(compile(_template.goods, item));
+				_jq.$goods_group.append($item);
+				$item.bind('click', function() {
+					var $this = $(this);
+					$this.addClass('active');
+					$this.siblings().removeClass('active');
+				});
+			});
+		};
+		var _renderGoods = function(brand_id, goods_type_id) {
+			_jq.$goods_group.html('');
+			_jq.$brand_content.addClass('hidden');
+			_jq.$goods_content.removeClass('hidden');
+			if (!goods_type_id) {
+				_loadGoodsTypeData(_opts, {
+					brand_id: brand_id
+				}, function(result) {
+					if (result.code) throw Error(result.message);
+					_data = result.data;
+					_renderGoodsTypeList(_data, brand_id);
+				});
+			}
+			_loadGoodsData(_opts, {
+				brand_id: brand_id,
+				goods_type_id: goods_type_id
+			}, function(result) {
+				if (result.code) throw Error(result.message);
+				_data = result.data;
+				_renderGoodsList(_data);
+			});
+		};
+		var _onComplete = function() {
+			var selected = _jq.$goods_group.find('.active');
+			if (selected.length) {
+				selected = filter(_data, function(item) {
+					return item.id == selected.data('id');
+				});
+				_opts.onComplete(selected.shift());
+			}
+		}
+		return {
+			init: function($dialog, opts) {
+				_jq.$dialog = $dialog;
+				_opts = $.extend(_defaults, opts);
+				return this;
+			},
+			build: function() {
+				_jq.$dialog.html('');
+				_jq.$content = $(compile(_template.content, _opts));
+				_jq.$dialog.append(_jq.$content);
+				
+				_jq.$brand_content = _jq.$content.find('.pk-brand');
+				_jq.$brand_header = $(compile(_template.header, _opts));
+				_jq.$brand_body = $(compile(_template.brand_body, _opts));
+				_jq.$brand_footer = $(compile(_template.brand_footer, _opts));
+				_jq.$brand_search = _jq.$brand_body.find('input[type=search]'); 
+				_jq.$brand_group = _jq.$brand_body.find('.thumbnail-group');
+				_jq.$pagination = _jq.$brand_footer.find('.pagination');
+
+				_jq.$brand_content.append(_jq.$brand_header);
+				_jq.$brand_content.append(_jq.$brand_body);
+				_jq.$brand_content.append(_jq.$brand_footer);
+
+				_jq.$goods_content = _jq.$content.find('.pk-goods');
+				_jq.$goods_header = $(compile(_template.header, _opts));
+				_jq.$goods_body = $(compile(_template.goods_body, _opts));
+				_jq.$goods_footer = $(compile(_template.goods_footer, _opts));
+				_jq.$goods_type_group = _jq.$goods_body.find('.pk-goods-type-group');
+				_jq.$goods_group = _jq.$goods_body.find('.thumbnail-group');
+				_jq.$back_btn = _jq.$goods_footer.find('.pk-back');
+				_jq.$confirm_btn = _jq.$goods_footer.find('.btn-primary');
+
+				_jq.$goods_content.append(_jq.$goods_header);
+				_jq.$goods_content.append(_jq.$goods_body);
+				_jq.$goods_content.append(_jq.$goods_footer);
+
+				return this;
+			},
+			render: function() {
+				_jq.$brand_search
+					.bind('keyup', _onSearch())
+					.trigger('keyup');
+				_jq.$back_btn.bind('click', function() {
+					_jq.$brand_content.removeClass('hidden');
+					_jq.$goods_content.addClass('hidden');
+					_jq.$brand_search.get(0).focus();
+				});
+				if (_opts.onComplete) {
+					_jq.$confirm_btn
+						.unbind('click', _onComplete)
+						.bind('click', _onComplete);
+				}
+			}
+		};
+	})();
+
+	var multi_goods = (function() {
+		var _defaults = {
+				title: '商品选择',
+				confirm_text: '确定',
+				cancel_text: '取消',
+				rows: 8
+			},
+			_opts;
+		var _handler, _data = [], _jq = {};
+		var _template = {
+			content: '<div class="modal-dialog modal-lg" role="document">' +
+				'<div class="modal-content pk-brand">' +
+				'</div>' +
+				'<div class="modal-content pk-goods hidden">' +
+				'</div>' +
+				'</div>',
+			header: '<div class="modal-header">' +
+				'<button type="button" class="close" data-dismiss="modal" aria-label="Close">' +
+				'<span aria-hidden="true">&times;</span>' +
+				'</button>' +
+				'<h4 class="modal-title"><%= title %></h4>' +
+				'</div>',
+			brand_body: '<div class="modal-body">' +
+				'<div>' +
+				'<input class="form-control" type="search" placeholder="Search..." style="margin-bottom: 10px;">' +
+				'<div class="thumbnail-group" style="width: 100%; max-height: 320px; overflow: auto; margin-bottom: 0;">' +
+				'</div>' +
+				'</div>' +
+				'</div>',
+			brand: '<div class="thumbnail" style="display: inline-block; margin: 0 17px 10px 17px; padding: 0 26px; cursor: pointer; text-align: center;" data-id="<%= id %>">' +
+      			'<img src="<%= img %>" style="width: 128px;" />' +
+      			'<div class="caption">' +
+        		'<h4><%= name %></h4>' +
+        		'<p>共有商品<b><%= total %></b>件</p>' +
+      			'</div>' +
+    			'</div>',
+			brand_footer: '<div class="modal-footer">' +
+				'<nav style="float: left;">' +
+				'<ul class="pagination" style="margin: 0;">' +
+				'</ul>' +
+				'</nav>' +
+				'</div>',
+			goods_body: '<div class="modal-body">' +
+				'<div>' +
+				'<form class="form-inline pk-goods-type-group"></form>' +
+				'<div class="row">' + 
+				'<div class="col-md-9 thumbnail-group pk-goods-group">' +
+				'</div>' +
+				'<div class="col-md-3 thumbnail-group pk-goods-selected-group">选择并双击左侧商品</div>' +
+				'</div>' +
+				'</div>',
+			goods_type: '<label style="margin-right:10px;"><input type="radio" name="goods_type" value="<%= id %>">&nbsp;<%= name %></label>',
+    		goods: '<div class="thumbnail" data-id="<%= id %>">' + 
+     	 		'<img src="<%= src %>" alt="<%= name %>" />' +
+    			'<div class="caption">' +
+        		'<p class="pk-left"><%= name %></p>' +
+        		'<p class="pk-right">' +
+        		'<a href="#" role="button" class="btn btn-danger btn-xs pk-remove-btn hidden">'+
+        		'<span class="glyphicon glyphicon-trash"></span>' +
+        		'</a>' +
+        		'</p>' +
+        		'</div>' +
+    			'</div>',
+			goods_footer: '<div class="modal-footer">' +
+				'<button type="button" class="btn btn-default pk-back">返回</button>' +
+				'<button type="button" class="btn btn-primary"><%= confirm_text %></button>' +
+				'</div>',
+			prev: '<li data-page="<%= page %>">' +
+				'<a href="javascript:void(0);" aria-label="Previous">' +
+				'<span aria-hidden="true">&laquo;</span>' +
+				'</a>' +
+				'</li>',
+			next: '<li data-page="<%= page %>">' +
+				'<a href="javascript:void(0);" aria-label="Next">' +
+				'<span aria-hidden="true">&raquo;</span>' +
+				'</a>' +
+				'</li>',
+			page: '<li data-page="<%= page %>">' +
+				'<a href="javascript:void(0);"><%= page %></a>' +
+				'</li>'
+		};
+		var _loadBrandData = function(opts, search, cb) {
+			$.ajax({
+				url: opts.brand_url,
+				method: opts.brand_method || 'get',
+				data: {
+					search: search.text,
+					page: search.page,
+					rows: search.rows
+				},
+				dataType: 'json',
+				success: cb,
+				error: function(err) {
+					throw err;
+				}
+			});
+		};
+		var _loadGoodsTypeData = function(opts, search, cb) {
+			$.ajax({
+				url: opts.goods_type_url,
+				method: opts.goods_method || 'get',
+				data: {
+					brand_id: search.brand_id
+				},
+				dataType: 'json',
+				success: cb,
+				error: function(err) {
+					throw err;
+				}
+			});
+		};
+		var _loadGoodsData = function(opts, search, cb) {
+			$.ajax({
+				url: opts.goods_url,
+				method: opts.goods_method || 'get',
+				data: {
+					brand_id: search.brand_id,
+					goods_type_id: search.goods_type_id
+				},
+				dataType: 'json',
+				success: cb,
+				error: function(err) {
+					throw err;
+				}
+			});
+		};
+		var _onSearch = function(page) {
+			return function() {
+				_handler && clearTimeout(_handler);
+				_handler = setTimeout(function() {
+					var text = _jq.$brand_search.val();
+					var rows = _opts.rows;
+					_loadBrandData(_opts, {
+						text: text,
+						page: page || 1,
+						rows: rows
+					}, function(result) {
+						if (result.code) throw Error(result.message);
+						_renderBrand(result);
+					});
+				}, 500);
+			}
+		};
+		var _renderBrandList = function(data_list) {
+			_jq.$brand_group.html('');
+			$.each(data_list, function(index, item) {
+				var $item = $(compile(_template.brand, item));
+				_jq.$brand_group.append($item);
+				$item.bind('click', function() {
+					var brand_id = $(this).data('id');
+					_renderGoods(brand_id);
+				});
+			});
+		};
+		var _renderBrandPagination = function(result) {
+			var page = result.page;
+			var rows = result.rows;
+			var total = Math.ceil(result.total / rows);
+			var start = Math.max(page - 3, 1);
+			var end = Math.min(page + 3, total);
+			var $prev = $(compile(_template.prev, {
+				page: Math.max(page - 1, 1)
+			}));
+			var $next = $(compile(_template.next, {
+				page: Math.min(page + 1, total)
+			}));
+			var $page;
+			_jq.$pagination.html('');
+			if (total === 0) return;
+			if (result.page === start) {
+				$prev.addClass('disabled');
+			}
+			_jq.$pagination.append($prev);
+			for (i = start; i <= end; i++) {
+				$page = $(compile(_template.page, {
+					page: i
+				}));
+				if (i === page) {
+					$page.addClass('active');
+				}
+				_jq.$pagination.append($page);
+			}
+			if (result.page === end) {
+				$next.addClass('disabled');
+			}
+			_jq.$pagination.append($next);
+			_jq.$pagination.find('li').bind('click', function() {
+				var $this = $(this);
+				var page = $this.data('page');
+				if (!$this.hasClass('active')) {
+					_onSearch(page)();
+				}
+			});
+		};
+		var _renderBrand = function(result) {
+			_renderBrandList(result.data);
+			_renderBrandPagination(result);
+			_jq.$brand_search.get(0).focus();
+		};
+		var _renderGoodsTypeList = function(goods_type, brand_id) {
+			goods_type.unshift({id: '0', name: '全部', checked: 'true'});
+			$.each(goods_type, function(index, item) {
+				var $item;
+				$item = $(compile(_template.goods_type, item));
+				_jq.$goods_type_group.append($item);
+				if (!index) $item.find('input').attr('checked', true);
+				$item.find('input').bind('change', function() {
+					var _this = $(this);
+					var sublings = _this.siblings();
+					if (_this.is(':checked')) {
+						sublings.attr('checked', false);
+						_renderGoods(brand_id, _this.val());
+					}
+				})
+			});
+		};
+		var _renderGoodsList = function(goods) {
+			$.each(goods, function(index, item) {
+				var $item = $(compile(_template.goods, item));
+				_jq.$goods_group.append($item);
+				$item.bind('dblclick', function() {
+					var $this = $(this);
+					var $selected = _jq.$goods_selected_group;
+					var $same = $selected.find('[data-id='+ $this.data('id') +']');
+					var $goods = $this.clone();
+					if (!$selected.find('div').length) {
+						$selected.html('');
+					}
+					if (!$same.length) {
+						$selected.append($goods);
+						$goods.find('.pk-remove-btn').removeClass('hidden').bind('click', function() {
+							$goods.remove();
+						});
+						_data.push(item);
+					}
+				});
+			});
+		};
+		var _renderGoods = function(brand_id, goods_type_id) {
+			_jq.$goods_group.html('');
+			_jq.$brand_content.addClass('hidden');
+			_jq.$goods_content.removeClass('hidden');
+			if (!goods_type_id) {
+				_loadGoodsTypeData(_opts, {
+					brand_id: brand_id
+				}, function(result) {
+					if (result.code) throw Error(result.message);
+					_renderGoodsTypeList(result.data, brand_id);
+				});
+			}
+			_loadGoodsData(_opts, {
+				brand_id: brand_id,
+				goods_type_id: goods_type_id
+			}, function(result) {
+				if (result.code) throw Error(result.message);
+				_renderGoodsList(result.data);
+			});
+		};
+		var _onComplete = function() {
+			var selected = _jq.$goods_selected_group.find('[data-id]');
+			if (selected.length) {
+				selected = filter(_data, function(item) {
+					return item.id == selected.data('id');
+				});
+				_opts.onComplete(selected.shift());
+			}
+		}
+		return {
+			init: function($dialog, opts) {
+				_jq.$dialog = $dialog;
+				_opts = $.extend(_defaults, opts);
+				return this;
+			},
+			build: function() {
+				_jq.$dialog.html('');
+				_jq.$content = $(compile(_template.content, _opts));
+				_jq.$dialog.append(_jq.$content);
+				
+				_jq.$brand_content = _jq.$content.find('.pk-brand');
+				_jq.$brand_header = $(compile(_template.header, _opts));
+				_jq.$brand_body = $(compile(_template.brand_body, _opts));
+				_jq.$brand_footer = $(compile(_template.brand_footer, _opts));
+				_jq.$brand_search = _jq.$brand_body.find('input[type=search]'); 
+				_jq.$brand_group = _jq.$brand_body.find('.thumbnail-group');
+				_jq.$pagination = _jq.$brand_footer.find('.pagination');
+
+				_jq.$brand_content.append(_jq.$brand_header);
+				_jq.$brand_content.append(_jq.$brand_body);
+				_jq.$brand_content.append(_jq.$brand_footer);
+
+				_jq.$goods_content = _jq.$content.find('.pk-goods');
+				_jq.$goods_header = $(compile(_template.header, _opts));
+				_jq.$goods_body = $(compile(_template.goods_body, _opts));
+				_jq.$goods_footer = $(compile(_template.goods_footer, _opts));
+				_jq.$goods_type_group = _jq.$goods_body.find('.pk-goods-type-group');
+				_jq.$goods_group = _jq.$goods_body.find('.pk-goods-group');
+				_jq.$goods_selected_group = _jq.$goods_body.find('.pk-goods-selected-group');
+				_jq.$back_btn = _jq.$goods_footer.find('.pk-back');
+				_jq.$confirm_btn = _jq.$goods_footer.find('.btn-primary');
+
+				_jq.$goods_content.append(_jq.$goods_header);
+				_jq.$goods_content.append(_jq.$goods_body);
+				_jq.$goods_content.append(_jq.$goods_footer);
+
+				return this;
+			},
+			render: function() {
+				_jq.$brand_search
+					.bind('keyup', _onSearch())
+					.trigger('keyup');
+				_jq.$back_btn.bind('click', function() {
+					_jq.$brand_content.removeClass('hidden');
+					_jq.$goods_content.addClass('hidden');
+					_jq.$brand_search.get(0).focus();
+				});
+				if (_opts.onComplete) {
+					_jq.$confirm_btn
+						.unbind('click', _onComplete)
+						.bind('click', _onComplete);
+				}
+			}
+		};
+	})();
+
 	var pickers = {
 		single_text: single_text,
 		single_picture: single_picture,
-		multi_picture: multi_picture
+		multi_picture: multi_picture,
+		single_goods: single_goods,
+		multi_goods: multi_goods
 	};
 
 	return $.fn.picker = function(type, opts) {

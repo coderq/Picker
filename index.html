@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>选择器</title>
     <link rel="stylesheet" type="text/css" href="/libs/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/picker.css">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -19,7 +20,7 @@
     <div class="modal fade" id="Picker"></div>
     <script src="/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="/libs/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/libs/jquery.picker.js"></script>
+    <script type="text/javascript" src="/jquery.picker.js"></script>
     <script type="text/javascript">
     $(function() {
         // $('#Picker').picker('single_picture', {
@@ -35,19 +36,19 @@
         // 		alert('You select: ' + JSON.stringify(selected));
         // 	}
         // }).modal('show');
-    	$('#Picker').picker('multi_picture', {
-        	title: '图片选择',
-        	confirm_text: '确定',
-        	cancel_text: '取消',
-        	folder_method: 'get',
-        	folder_url: '/folder',
-        	image_method: 'get',
-        	image_url: '/img',
-        	rows: 10,
-        	onComplete: function(selected) {
-        		alert('You select: ' + JSON.stringify(selected));
-        	}
-        }).modal('show');
+    	// $('#Picker').picker('multi_picture', {
+     //    	title: '图片选择',
+     //    	confirm_text: '确定',
+     //    	cancel_text: '取消',
+     //    	folder_method: 'get',
+     //    	folder_url: '/folder',
+     //    	image_method: 'get',
+     //    	image_url: '/img',
+     //    	rows: 10,
+     //    	onComplete: function(selected) {
+     //    		alert('You select: ' + JSON.stringify(selected));
+     //    	}
+     //    }).modal('show');
         // $('#Picker').picker('single_text', {
         // 	title: '锚点选择',
         // 	confirm_text: '确定',
@@ -59,6 +60,20 @@
         // 		alert('You select: ' + JSON.stringify(selected));
         // 	}
         // }).modal('show');
+        $('#Picker').picker('multi_goods', {
+            title: '商品选择',
+            confirm_text: '确定',
+            cancel_text: '取消',
+            brand_method: 'get',
+            brand_url: '/brand',
+            goods_type_method: 'get',
+            goods_type_url: '/goods_type',
+            goods_method: 'get',
+            goods_url: '/goods',
+            onComplete: function(selected) {
+                alert('You select: ' + JSON.stringify(selected));
+            }
+        }).modal('show');
     });
     </script>
 </body>

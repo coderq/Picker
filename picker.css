@@ -1,0 +1,42 @@
+.pk-left {
+	float: left;
+}
+.pk-right {
+	float: right;
+}
+
+.pk-goods-type-group {
+	line-height: 32px;
+}
+
+.pk-goods-group, .pk-goods-selected-group {
+	max-height: 420px; 
+	overflow: auto; 
+	margin-bottom: 0;
+}
+
+.pk-goods-group .thumbnail {
+	display: inline-block; 
+	width: 179px; 
+	margin: 0 17px 10px 17px; 
+	padding: 0 6px; 
+	cursor: pointer;
+}
+
+.pk-goods-group img {
+	max-width: 159px; 
+	max-height: 200px;
+}
+
+.pk-goods-selected-group .thumbnail {
+	display: inline-block; 
+	width: 159px; 
+	margin: 0 17px 10px 17px; 
+	padding: 0 6px; 
+	cursor: pointer;
+}
+
+.pk-goods-selected-group img {
+	max-width: 139px; 
+	max-height: 200px;
+}
