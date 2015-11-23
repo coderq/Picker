@@ -1280,7 +1280,6 @@
 					if (!$selected.find('div').length) {
 						$selected.html('');
 					}
-					console.log(_data);
 					if (!$same.length) {
 						_data.push(item);
 						$selected.append($goods);
