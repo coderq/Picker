@@ -249,12 +249,12 @@
 				'</div>' +
 				'</div>',
 			folder: '<div class="thumbnail" style="display: inline-block; margin: 0 17px 10px 17px; padding: 0 26px; cursor: pointer; text-align: center;" data-id="<%= id %>">' +
-      			'<span class="glyphicon glyphicon-folder-close" style="font-size: 120px;"></span>' +
-      			'<div class="caption">' +
-        		'<h4><%= name %></h4>' +
-        		'<p>共有图片<b><%= total %></b>张</p>' +
-      			'</div>' +
-    			'</div>',
+				'<span class="glyphicon glyphicon-folder-close" style="font-size: 120px;"></span>' +
+				'<div class="caption">' +
+				'<h4><%= name %></h4>' +
+				'<p>共有图片<b><%= total %></b>张</p>' +
+				'</div>' +
+				'</div>',
 			folder_footer: '<div class="modal-footer">' +
 				'<nav style="float: left;">' +
 				'<ul class="pagination" style="margin: 0;">' +
@@ -267,12 +267,12 @@
 				'</div>' +
 				'</div>' +
 				'</div>',
-    		image: '<a href="javascript:void(0);" class="thumbnail" style="display: inline-block; width: 182px; margin: 0 17px 10px 17px; padding: 0 10px; cursor: pointer;" data-id="<%= id %>">' + 
-     	 		'<img src="<%= src %>" alt="<%= name %>" style="max-width: 160px; max-height: 200px;">' +
-    			'<div class="caption">' +
-        		'<p><%= name %></p>' +
-        		'</div>' +
-    			'</a>',
+			image: '<a href="javascript:void(0);" class="thumbnail" style="display: inline-block; width: 182px; margin: 0 17px 10px 17px; padding: 0 10px; cursor: pointer;" data-id="<%= id %>">' +
+				'<img src="<%= src %>" alt="<%= name %>" style="max-width: 160px; max-height: 200px;">' +
+				'<div class="caption">' +
+				'<p><%= name %></p>' +
+				'</div>' +
+				'</a>',
 			image_footer: '<div class="modal-footer">' +
 				'<button type="button" class="btn btn-default pk-back">返回</button>' +
 				'<button type="button" class="btn btn-primary"><%= confirm_text %></button>' +
@@ -436,12 +436,12 @@
 				_jq.$dialog.html('');
 				_jq.$content = $(compile(_template.content, _opts));
 				_jq.$dialog.append(_jq.$content);
-				
+
 				_jq.$folder_content = _jq.$content.find('.pk-folder');
 				_jq.$folder_header = $(compile(_template.header, _opts));
 				_jq.$folder_body = $(compile(_template.folder_body, _opts));
 				_jq.$folder_footer = $(compile(_template.folder_footer, _opts));
-				_jq.$folder_search = _jq.$folder_body.find('input[type=search]'); 
+				_jq.$folder_search = _jq.$folder_body.find('input[type=search]');
 				_jq.$folder_group = _jq.$folder_body.find('.thumbnail-group');
 				_jq.$pagination = _jq.$folder_footer.find('.pagination');
 
@@ -511,12 +511,12 @@
 				'</div>' +
 				'</div>',
 			folder: '<div class="thumbnail" style="display: inline-block; margin: 0 17px 10px 17px; padding: 0 26px; cursor: pointer; text-align: center;" data-id="<%= id %>">' +
-      			'<span class="glyphicon glyphicon-folder-close" style="font-size: 120px;"></span>' +
-      			'<div class="caption">' +
-        		'<h4><%= name %></h4>' +
-        		'<p>共有图片<b><%= total %></b>张</p>' +
-      			'</div>' +
-    			'</div>',
+				'<span class="glyphicon glyphicon-folder-close" style="font-size: 120px;"></span>' +
+				'<div class="caption">' +
+				'<h4><%= name %></h4>' +
+				'<p>共有图片<b><%= total %></b>张</p>' +
+				'</div>' +
+				'</div>',
 			folder_footer: '<div class="modal-footer">' +
 				'<nav style="float: left;">' +
 				'<ul class="pagination" style="margin: 0;">' +
@@ -529,12 +529,12 @@
 				'</div>' +
 				'</div>' +
 				'</div>',
-    		image: '<a href="javascript:void(0);" class="thumbnail" style="display: inline-block; width: 182px; margin: 0 17px 10px 17px; padding: 0 10px; cursor: pointer;" data-id="<%= id %>">' + 
-     	 		'<img src="<%= src %>" alt="<%= name %>" style="max-width: 160px; max-height: 200px;">' +
-    			'<div class="caption">' +
-        		'<input type="checkbox"> <span><%= name %></span>' +
-        		'</div>' +
-    			'</a>',
+			image: '<a href="javascript:void(0);" class="thumbnail" style="display: inline-block; width: 182px; margin: 0 17px 10px 17px; padding: 0 10px; cursor: pointer;" data-id="<%= id %>">' +
+				'<img src="<%= src %>" alt="<%= name %>" style="max-width: 160px; max-height: 200px;">' +
+				'<div class="caption">' +
+				'<input type="checkbox"> <span><%= name %></span>' +
+				'</div>' +
+				'</a>',
 			image_footer: '<div class="modal-footer">' +
 				'<button type="button" class="btn btn-default pk-back">返回</button>' +
 				'<button type="button" class="btn btn-primary"><%= confirm_text %></button>' +
@@ -696,12 +696,12 @@
 				_jq.$dialog.html('');
 				_jq.$content = $(compile(_template.content, _opts));
 				_jq.$dialog.append(_jq.$content);
-				
+
 				_jq.$folder_content = _jq.$content.find('.pk-folder');
 				_jq.$folder_header = $(compile(_template.header, _opts));
 				_jq.$folder_body = $(compile(_template.folder_body, _opts));
 				_jq.$folder_footer = $(compile(_template.folder_footer, _opts));
-				_jq.$folder_search = _jq.$folder_body.find('input[type=search]'); 
+				_jq.$folder_search = _jq.$folder_body.find('input[type=search]');
 				_jq.$folder_group = _jq.$folder_body.find('.thumbnail-group');
 				_jq.$pagination = _jq.$folder_footer.find('.pagination');
 
@@ -771,12 +771,12 @@
 				'</div>' +
 				'</div>',
 			brand: '<div class="thumbnail" style="display: inline-block; margin: 0 17px 10px 17px; padding: 0 26px; cursor: pointer; text-align: center;" data-id="<%= id %>">' +
-      			'<img src="<%= img %>" style="width: 128px;" />' +
-      			'<div class="caption">' +
-        		'<h4><%= name %></h4>' +
-        		'<p>共有商品<b><%= total %></b>件</p>' +
-      			'</div>' +
-    			'</div>',
+				'<img src="<%= img %>" style="width: 128px;" />' +
+				'<div class="caption">' +
+				'<h4><%= name %></h4>' +
+				'<p>共有商品<b><%= total %></b>件</p>' +
+				'</div>' +
+				'</div>',
 			brand_footer: '<div class="modal-footer">' +
 				'<nav style="float: left;">' +
 				'<ul class="pagination" style="margin: 0;">' +
@@ -791,12 +791,12 @@
 				'</div>' +
 				'</div>',
 			goods_type: '<label style="margin-right:10px;"><input type="radio" name="goods_type" value="<%= id %>">&nbsp;<%= name %></label>',
-    		goods: '<a href="javascript:void(0);" class="thumbnail" style="display: inline-block; width: 182px; margin: 0 17px 10px 17px; padding: 0 10px; cursor: pointer;" data-id="<%= id %>">' + 
-     	 		'<img src="<%= src %>" alt="<%= name %>" style="max-width: 160px; max-height: 200px;">' +
-    			'<div class="caption">' +
-        		'<p><%= name %></p>' +
-        		'</div>' +
-    			'</a>',
+			goods: '<a href="javascript:void(0);" class="thumbnail" style="display: inline-block; width: 182px; margin: 0 17px 10px 17px; padding: 0 10px; cursor: pointer;" data-id="<%= id %>">' +
+				'<img src="<%= src %>" alt="<%= name %>" style="max-width: 160px; max-height: 200px;">' +
+				'<div class="caption">' +
+				'<p><%= name %></p>' +
+				'</div>' +
+				'</a>',
 			goods_footer: '<div class="modal-footer">' +
 				'<button type="button" class="btn btn-default pk-back">返回</button>' +
 				'<button type="button" class="btn btn-primary"><%= confirm_text %></button>' +
@@ -934,7 +934,11 @@
 			_jq.$brand_search.get(0).focus();
 		};
 		var _renderGoodsTypeList = function(goods_type, brand_id) {
-			goods_type.unshift({id: '0', name: '全部', checked: 'true'});
+			goods_type.unshift({
+				id: '0',
+				name: '全部',
+				checked: 'true'
+			});
 			$.each(goods_type, function(index, item) {
 				var $item;
 				$item = $(compile(_template.goods_type, item));
@@ -1002,12 +1006,12 @@
 				_jq.$dialog.html('');
 				_jq.$content = $(compile(_template.content, _opts));
 				_jq.$dialog.append(_jq.$content);
-				
+
 				_jq.$brand_content = _jq.$content.find('.pk-brand');
 				_jq.$brand_header = $(compile(_template.header, _opts));
 				_jq.$brand_body = $(compile(_template.brand_body, _opts));
 				_jq.$brand_footer = $(compile(_template.brand_footer, _opts));
-				_jq.$brand_search = _jq.$brand_body.find('input[type=search]'); 
+				_jq.$brand_search = _jq.$brand_body.find('input[type=search]');
 				_jq.$brand_group = _jq.$brand_body.find('.thumbnail-group');
 				_jq.$pagination = _jq.$brand_footer.find('.pagination');
 
@@ -1056,7 +1060,8 @@
 				rows: 8
 			},
 			_opts;
-		var _handler, _data = [], _jq = {};
+		var _handler, _data = [],
+			_jq = {};
 		var _template = {
 			content: '<div class="modal-dialog modal-lg" role="document">' +
 				'<div class="modal-content pk-brand">' +
@@ -1078,12 +1083,12 @@
 				'</div>' +
 				'</div>',
 			brand: '<div class="thumbnail" style="display: inline-block; margin: 0 17px 10px 17px; padding: 0 26px; cursor: pointer; text-align: center;" data-id="<%= id %>">' +
-      			'<img src="<%= img %>" style="width: 128px;" />' +
-      			'<div class="caption">' +
-        		'<h4><%= name %></h4>' +
-        		'<p>共有商品<b><%= total %></b>件</p>' +
-      			'</div>' +
-    			'</div>',
+				'<img src="<%= img %>" style="width: 128px;" />' +
+				'<div class="caption">' +
+				'<h4><%= name %></h4>' +
+				'<p>共有商品<b><%= total %></b>件</p>' +
+				'</div>' +
+				'</div>',
 			brand_footer: '<div class="modal-footer">' +
 				'<nav style="float: left;">' +
 				'<ul class="pagination" style="margin: 0;">' +
@@ -1093,24 +1098,24 @@
 			goods_body: '<div class="modal-body">' +
 				'<div>' +
 				'<form class="form-inline pk-goods-type-group"></form>' +
-				'<div class="row">' + 
+				'<div class="row">' +
 				'<div class="col-md-9 thumbnail-group pk-goods-group">' +
 				'</div>' +
 				'<div class="col-md-3 thumbnail-group pk-goods-selected-group">选择并双击左侧商品</div>' +
 				'</div>' +
 				'</div>',
 			goods_type: '<label style="margin-right:10px;"><input type="radio" name="goods_type" value="<%= id %>">&nbsp;<%= name %></label>',
-    		goods: '<div class="thumbnail" data-id="<%= id %>">' + 
-     	 		'<img src="<%= src %>" alt="<%= name %>" />' +
-    			'<div class="caption">' +
-        		'<p class="pk-left"><%= name %></p>' +
-        		'<p class="pk-right">' +
-        		'<a href="#" role="button" class="btn btn-danger btn-xs pk-remove-btn hidden">'+
-        		'<span class="glyphicon glyphicon-trash"></span>' +
-        		'</a>' +
-        		'</p>' +
-        		'</div>' +
-    			'</div>',
+			goods: '<div class="thumbnail" data-id="<%= id %>">' +
+				'<img src="<%= src %>" alt="<%= name %>" />' +
+				'<div class="caption">' +
+				'<p class="pk-left"><%= name %></p>' +
+				'<p class="pk-right">' +
+				'<a href="#" role="button" class="btn btn-danger btn-xs pk-remove-btn hidden">' +
+				'<span class="glyphicon glyphicon-trash"></span>' +
+				'</a>' +
+				'</p>' +
+				'</div>' +
+				'</div>',
 			goods_footer: '<div class="modal-footer">' +
 				'<button type="button" class="btn btn-default pk-back">返回</button>' +
 				'<button type="button" class="btn btn-primary"><%= confirm_text %></button>' +
@@ -1252,7 +1257,11 @@
 			_jq.$brand_search.get(0).focus();
 		};
 		var _renderGoodsTypeList = function(goods_type, brand_id) {
-			goods_type.unshift({id: '0', name: '全部', checked: 'true'});
+			goods_type.unshift({
+				id: '0',
+				name: '全部',
+				checked: 'true'
+			});
 			$.each(goods_type, function(index, item) {
 				var $item;
 				$item = $(compile(_template.goods_type, item));
@@ -1275,7 +1284,7 @@
 				$item.bind('dblclick', function() {
 					var $this = $(this);
 					var $selected = _jq.$goods_selected_group;
-					var $same = $selected.find('[data-id='+ $this.data('id') +']');
+					var $same = $selected.find('[data-id=' + $this.data('id') + ']');
 					var $goods = $this.clone();
 					if (!$selected.find('div').length) {
 						$selected.html('');
@@ -1288,7 +1297,7 @@
 							for (var i = 0; i < _data.length; i++) {
 								if (_data[i].id == goods_id) {
 									_data.splice(i, 1);
-									i --;
+									i--;
 								}
 							}
 							$goods.remove();
@@ -1330,12 +1339,12 @@
 				_jq.$dialog.html('');
 				_jq.$content = $(compile(_template.content, _opts));
 				_jq.$dialog.append(_jq.$content);
-				
+
 				_jq.$brand_content = _jq.$content.find('.pk-brand');
 				_jq.$brand_header = $(compile(_template.header, _opts));
 				_jq.$brand_body = $(compile(_template.brand_body, _opts));
 				_jq.$brand_footer = $(compile(_template.brand_footer, _opts));
-				_jq.$brand_search = _jq.$brand_body.find('input[type=search]'); 
+				_jq.$brand_search = _jq.$brand_body.find('input[type=search]');
 				_jq.$brand_group = _jq.$brand_body.find('.thumbnail-group');
 				_jq.$pagination = _jq.$brand_footer.find('.pagination');
 
@@ -1377,12 +1386,142 @@
 		};
 	})();
 
+	var goods = (function() {
+		var _defaults = {
+				title: '商品选择',
+				confirm_text: '确定',
+				cancel_text: '取消',
+				rows: 8
+			},
+			_opts;
+		var _handler, _data, _jq = {};
+		var _template = {
+			content: '<div class="modal-dialog modal-lg" role="document">' +
+				'<div class="modal-content">' +
+				'</div>' +
+				'</div>',
+			header: '<div class="modal-header">' +
+				'<button type="button" class="close" data-dismiss="modal" aria-label="Close">' +
+				'<span aria-hidden="true">&times;</span>' +
+				'</button>' +
+				'<h4 class="modal-title"><%= title %></h4>' +
+				'</div>',
+			body: '<div class="modal-body">' +
+				'<div>' +
+				'<input class="form-control" type="search" placeholder="Please enter the goods id." style="margin-bottom: 10px;">' +
+				'<div class="thumbnail-group" style="width: 100%; max-height: 320px; overflow: auto; margin-bottom: 0;">' +
+				'</div>' +
+				'</div>' +
+				'</div>',
+			goods: '<div class="thumbnail" style="width: 182px; margin: 0 17px 10px 17px; padding: 0 10px; cursor: pointer;" data-id="<%= id %>">' +
+				'<img src="<%= src %>" alt="<%= name %>" style="max-width: 160px; max-height: 200px;">' +
+				'<div class="caption">' +
+				'<p class="pk-left"><%= name %></p>' +
+				'<p class="pk-right">' +
+				'<a href="javascript:void(0);" role="button" class="btn btn-danger btn-xs pk-remove-btn">' +
+				'<span class="glyphicon glyphicon-trash"></span>' +
+				'</a>' +
+				'</p>' +
+				'</div>' +
+				'</div>',
+			footer: '<div class="modal-footer">' +
+				'<button type="button" class="btn btn-primary"><%= confirm_text %></button>' +
+				'</div>'
+		};
+		var _loadGoodsData = function(opts, search, cb) {
+			$.ajax({
+				url: opts.url,
+				method: opts.method || 'get',
+				data: {
+					goods_id: search.goods_id
+				},
+				dataType: 'json',
+				success: cb,
+				error: function(err) {
+					throw err;
+				}
+			});
+		};
+		var _onSearch = function(ev) {
+			_loadGoodsData(_opts, {
+				goods_id: _jq.$search.val()
+			}, function(result) {
+				var $goods;
+				if (result.code) throw Error(result.message);
+				if (!result.goods) {
+					alert('未发现商品');
+				} else if (_jq.$group.find('[data-id=' + result.goods.id + ']').length) {
+					alert('商品已在列表中');
+				} else {
+					$goods = $(compile(_template.goods, result.goods));
+					_jq.$group.append($goods);
+					_jq.$group.find('.pk-remove-btn').bind('click', function() {
+						$goods.remove();
+					});
+				}
+			});
+		};
+		var _onComplete = function() {
+			var selected = _jq.$group.children();
+			if (selected.length) {
+				selected = filter(_data, function(item) {
+					return item.id == selected.data('id');
+				});
+				_opts.onComplete(selected.shift());
+			}
+		}
+		return {
+			init: function($dialog, opts) {
+				_jq.$dialog = $dialog;
+				_opts = $.extend(_defaults, opts);
+				return this;
+			},
+			build: function() {
+				_jq.$dialog.html('');
+				_jq.$content = $(compile(_template.content, _opts));
+				_jq.$dialog.append(_jq.$content);
+
+				_jq.$content = _jq.$content.find('.modal-content');
+				_jq.$header = $(compile(_template.header, _opts));
+				_jq.$body = $(compile(_template.body, _opts));
+				_jq.$footer = $(compile(_template.footer, _opts));
+
+				_jq.$content.append(_jq.$header);
+				_jq.$content.append(_jq.$body);
+				_jq.$content.append(_jq.$footer);
+
+				_jq.$search = _jq.$body.find('input[type=search]');
+				_jq.$group = _jq.$body.find('.thumbnail-group');
+				_jq.$back_btn = _jq.$footer.find('.pk-back');
+				_jq.$confirm_btn = _jq.$footer.find('.btn-primary');
+
+				return this;
+			},
+			render: function() {
+				console.log(_jq.$search);
+				_jq.$search
+					.bind('keyup', function(ev) {
+						if (ev.keyCode === 13) {
+							_onSearch();
+						}
+					})
+					.trigger('keyup');
+				if (_opts.onComplete) {
+					_jq.$confirm_btn
+						.unbind('click', _onComplete)
+						.bind('click', _onComplete);
+				}
+			}
+		};
+	})();
+
 	var pickers = {
 		single_text: single_text,
 		single_picture: single_picture,
 		multi_picture: multi_picture,
 		single_goods: single_goods,
-		multi_goods: multi_goods
+		multi_goods: multi_goods,
+		goods: goods
 	};
 
 	return $.fn.picker = function(type, opts) {

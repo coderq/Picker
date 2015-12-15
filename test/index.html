@@ -60,16 +60,26 @@
         // 		alert('You select: ' + JSON.stringify(selected));
         // 	}
         // }).modal('show');
-        $('#Picker').picker('multi_goods', {
+        // $('#Picker').picker('multi_goods', {
+        //     title: '商品选择',
+        //     confirm_text: '确定',
+        //     cancel_text: '取消',
+        //     brand_method: 'get',
+        //     brand_url: '/brand',
+        //     goods_type_method: 'get',
+        //     goods_type_url: '/goods_type',
+        //     goods_method: 'get',
+        //     goods_url: '/goods',
+        //     onComplete: function(selected) {
+        //         alert('You select: ' + JSON.stringify(selected));
+        //     }
+        // }).modal('show');
+        $('#Picker').picker('goods', {
             title: '商品选择',
             confirm_text: '确定',
             cancel_text: '取消',
-            brand_method: 'get',
-            brand_url: '/brand',
-            goods_type_method: 'get',
-            goods_type_url: '/goods_type',
-            goods_method: 'get',
-            goods_url: '/goods',
+            method: 'get',
+            url: '/new_goods',
             onComplete: function(selected) {
                 alert('You select: ' + JSON.stringify(selected));
             }

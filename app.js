@@ -156,7 +156,7 @@ http.createServer(function(req, res) {
 			return query;
 		})();
 		if (Number(req.query.goods_type_id)) {
-			selected_goods = goods.filter(function(goods) {console.log(goods, req.query.goods_type_id);
+			selected_goods = goods.filter(function(goods) {
 				return goods.type == req.query.goods_type_id;
 			});
 		}
@@ -167,6 +167,30 @@ http.createServer(function(req, res) {
 			page: page,
 			total: selected_goods.length,
 			data: selected_goods
+		}));
+	} else if (req.url.match('/new_goods')) {
+		var new_goods = goods.slice(0);console.log(new_goods);
+		req.query = (function() {
+			var queries = req.url.split('?')[1];
+			if (!queries) return {};
+			queries = queries.split('&').map(function(item) {
+				return item.split('=');
+			});
+			var query = {};
+			queries.map(function(q) {
+				query[q[0]] = q[1];
+			});
+			return query;
+		})();
+		if (Number(req.query.goods_id)) {
+			selected_goods = new_goods.filter(function(goods) {
+				return goods.id == req.query.goods_id;
+			}).pop();
+		}
+		res.end(JSON.stringify({
+			code: 0,
+			message: "成功",
+			goods: selected_goods
 		}));
 	} else {
 		console.log(req.url);
