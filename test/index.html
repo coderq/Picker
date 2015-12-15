@@ -27,63 +27,13 @@
         	title: '图片选择',
         	confirm_text: '确定',
         	cancel_text: '取消',
-        	folder_method: 'get',
-        	folder_url: '/folder',
-        	image_method: 'get',
-        	image_url: '/img',
-        	rows: 10,
+        	method: 'get',
+        	url: '/test/picture.json',
+        	rows: 8,
         	onComplete: function(selected) {
         		alert('You select: ' + JSON.stringify(selected));
         	}
         }).modal('show');
-    	// $('#Picker').picker('multi_picture', {
-     //    	title: '图片选择',
-     //    	confirm_text: '确定',
-     //    	cancel_text: '取消',
-     //    	folder_method: 'get',
-     //    	folder_url: '/folder',
-     //    	image_method: 'get',
-     //    	image_url: '/img',
-     //    	rows: 10,
-     //    	onComplete: function(selected) {
-     //    		alert('You select: ' + JSON.stringify(selected));
-     //    	}
-     //    }).modal('show');
-        // $('#Picker').picker('single_text', {
-        // 	title: '锚点选择',
-        // 	confirm_text: '确定',
-        // 	cancel_text: '取消',
-        // 	method: 'get',
-        // 	url: '/data',
-        // 	rows: 10,
-        // 	onComplete: function(selected) {
-        // 		alert('You select: ' + JSON.stringify(selected));
-        // 	}
-        // }).modal('show');
-        // $('#Picker').picker('multi_goods', {
-        //     title: '商品选择',
-        //     confirm_text: '确定',
-        //     cancel_text: '取消',
-        //     brand_method: 'get',
-        //     brand_url: '/brand',
-        //     goods_type_method: 'get',
-        //     goods_type_url: '/goods_type',
-        //     goods_method: 'get',
-        //     goods_url: '/goods',
-        //     onComplete: function(selected) {
-        //         alert('You select: ' + JSON.stringify(selected));
-        //     }
-        // }).modal('show');
-        // $('#Picker').picker('goods', {
-        //     title: '商品选择',
-        //     confirm_text: '确定',
-        //     cancel_text: '取消',
-        //     method: 'get',
-        //     url: '/new_goods',
-        //     onComplete: function(selected) {
-        //         alert('You select: ' + JSON.stringify(selected));
-        //     }
-        // }).modal('show');
     });
     </script>
 </body>
